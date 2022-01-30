@@ -1,4 +1,3 @@
-import React from "react";
 import MainSection from "./components/MainSection/MainSection";
 
 import classes from "./App.module.scss";

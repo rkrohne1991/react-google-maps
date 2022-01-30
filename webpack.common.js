@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   devtool: "source-map",
   entry: {
-    app: "./src/index.js",
+    app: "./src/index.tsx",
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -23,7 +23,6 @@ module.exports = {
   module: {
     rules: [
       {
-        // test: /\.m?js$/,
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -32,6 +31,11 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: "/node_modules/",
       },
       {
         test: /\.scss$/,
@@ -47,17 +51,10 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: "svg-url-loader",
-            options: {
-              limit: 10000,
-            },
-          },
-        ],
-      },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
 };
