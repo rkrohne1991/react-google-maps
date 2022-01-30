@@ -1,0 +1,35 @@
+{
+  "name": "react-google-maps",
+  "version": "1.0.0",
+  "description": "React Google Maps Test",
+  "main": "index.js",
+  "homepage": "",
+  "repository": "https://github.com/rkrohne1991/react-google-maps.git",
+  "author": "Rafal Krohne <rafal.krohne@hotmail.co.uk>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.48.0",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3",
+    "webpack-merge": "^5.8.0"
+  }
+}
