@@ -3,10 +3,26 @@
         "outDir": "./dist/",
         "noImplicitAny": true,
         "module": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "target": "es5",
         "jsx": "react-jsx",
         "allowJs": true,
         "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true
-    }
+        "allowSyntheticDefaultImports": true,
+        "rootDir": "src",
+        "sourceMap": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+    },
+    "include": [
+        "./src"
+    ],
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
 }

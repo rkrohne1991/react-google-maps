@@ -6,6 +6,9 @@ module.exports = {
   entry: {
     app: "./src/index.tsx",
   },
+  stats: {
+    errorDetails: false,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "index.html"),
@@ -19,6 +22,9 @@ module.exports = {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "build"),
     clean: true,
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     rules: [
@@ -51,10 +57,12 @@ module.exports = {
           },
         ],
       },
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+      {
+        test: [/\.js?$/, /\.ts?$/, /\.jsx?$/, /\.tsx?$/],
+        enforce: "pre",
+        exclude: /node_modules/,
+        use: ["source-map-loader"],
+      },
     ],
-  },
-  resolve: {
-    extensions: [".ts", ".tsx", ".js", ".json"],
   },
 };
