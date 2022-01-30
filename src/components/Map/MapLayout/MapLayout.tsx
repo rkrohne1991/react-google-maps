@@ -2,6 +2,8 @@ import React, { useRef, useEffect, ReactElement } from "react";
 
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
+import styles from "./MapLayout.module.scss";
+
 const render = (status: Status): ReactElement => {
   switch (status) {
     case Status.LOADING:
@@ -33,12 +35,11 @@ const Map = ({
 };
 
 const MapLayout = () => {
-  const center = { lat: -34.397, lng: 150.644 };
-  const zoom = 4;
+  const center = { lat: 52.1935161702226, lng: 20.9304286193486 };
+  const zoom = 10;
 
   return (
-    <div>
-      <h2>Map</h2>
+    <div className={styles["map-layout"]}>
       <Wrapper
         apiKey={"AIzaSyAwadTBu0eWy62P5paqTikU7SK6UNx-DYA"}
         render={render}
