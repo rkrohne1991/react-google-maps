@@ -1,8 +1,15 @@
 import React, { useRef, useEffect, ReactElement } from "react";
 
+import Map from "../Map/Map";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import styles from "./MapLayout.module.scss";
+
+const calcMedian = (arr: []) => {
+  const mid = Math.floor(arr.length / 2),
+    nums = [...arr].sort((a, b) => a - b);
+  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+};
 
 const render = (status: Status): ReactElement => {
   switch (status) {
@@ -15,28 +22,44 @@ const render = (status: Status): ReactElement => {
   }
 };
 
-const Map = ({
-  center,
-  zoom,
-}: {
-  center: google.maps.LatLngLiteral;
-  zoom: number;
-}) => {
-  const ref = useRef<any>();
+// export interface Object {
+//   id: string;
+//   location: {
+//     latitude: number;
+//     longitude: number;
+//   };
+// }
 
-  useEffect(() => {
-    new window.google.maps.Map(ref.current, {
-      center,
-      zoom,
-    });
-  });
+// export interface APIdata {
+//   name: string;
+//   packages: Object[];
+// }
 
-  return <div ref={ref} id="map" />;
-};
+// type APIdataProps = {
+//   objects: APIdata;
+// };
+// To Do: Declare interface in another file
+// To Do: finish types
 
-const MapLayout = () => {
-  const center = { lat: 52.1935161702226, lng: 20.9304286193486 };
+const MapLayout = (props: any) => {
+  let defaultLat: number = 52;
+  let defaultLong: number = 20;
   const zoom = 10;
+
+  if (props.objects !== undefined) {
+    const latitudes = props.objects.map((element: any) => {
+      return element.location.latitude;
+    });
+
+    const longitudes = props.objects.map((element: any) => {
+      return element.location.longitude;
+    });
+
+    defaultLat = calcMedian(latitudes);
+    defaultLong = calcMedian(longitudes);
+  }
+
+  const center = { lat: defaultLat, lng: defaultLong };
 
   return (
     <div className={styles["map-layout"]}>

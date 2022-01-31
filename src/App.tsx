@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
     try {
       const response = await fetch(
-        "https://dev.vozilla.pl/api-client-portal/map?objectType=VEHICLEs"
+        "https://dev.vozilla.pl/api-client-portal/map?objectType=VEHICLE"
       );
 
       if (!response.ok) {
@@ -79,7 +79,7 @@ const App: React.FC = () => {
     <div className={classes.mainApp}>
       <main>
         <h1>React Google Map</h1>
-        <MapLayout />
+        <MapLayout {...objects} />
       </main>
       {content}
     </div>
