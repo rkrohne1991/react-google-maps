@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import Map from "../Map/Map";
+import Marker from "../Marker/Marker";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import styles from "./MapLayout.module.scss";
@@ -42,24 +43,44 @@ const render = (status: Status): ReactElement => {
 // To Do: finish types
 
 const MapLayout = (props: any) => {
-  let defaultLat: number = 52;
-  let defaultLong: number = 20;
-  const zoom = 10;
+  // const [defaultLat, setDefaultLat] = useState<number>(52);
+  // const [defaultLong, setDefaultLong] = useState<number>(20);
+  const [defaultLat, setDefaultLat] = useState<number>(52.1935161702226);
+  const [defaultLong, setDefaultLong] = useState<number>(20.9304286193486);
+  const [defaultZoom, setDefaultZoom] = useState<number>(15);
 
-  if (props.objects !== undefined) {
-    const latitudes = props.objects.map((element: any) => {
-      return element.location.latitude;
-    });
+  useEffect(() => {
+    if (props.objects !== undefined) {
+      if (props.objects !== undefined) {
+        const latitudes = props.objects.map((element: any) => {
+          return element.location.latitude;
+        });
+        const longitudes = props.objects.map((element: any) => {
+          return element.location.longitude;
+        });
+        setDefaultLat(calcMedian(latitudes));
+        setDefaultLong(calcMedian(longitudes));
+        setDefaultZoom(10);
+      }
+    }
+  }, [props.objects]);
 
-    const longitudes = props.objects.map((element: any) => {
-      return element.location.longitude;
-    });
+  let center = { lat: defaultLat, lng: defaultLong };
 
-    defaultLat = calcMedian(latitudes);
-    defaultLong = calcMedian(longitudes);
-  }
+  const position1 = {
+    lat: 52.1935161702226,
+    lng: 20.9304286193486,
+  };
 
-  const center = { lat: defaultLat, lng: defaultLong };
+  const position2 = {
+    lat: 52.193275,
+    lng: 20.930372,
+  };
+
+  const position3 = {
+    lat: 52.193891367697,
+    lng: 20.930564789789,
+  };
 
   return (
     <div className={styles["map-layout"]}>
@@ -67,7 +88,17 @@ const MapLayout = (props: any) => {
         apiKey={"AIzaSyAwadTBu0eWy62P5paqTikU7SK6UNx-DYA"}
         render={render}
       >
-        <Map center={center} zoom={zoom} />
+        <Map
+          center={{
+            lat: defaultLat,
+            lng: defaultLong,
+          }}
+          zoom={defaultZoom}
+        >
+          <Marker position={position1} />
+          <Marker position={position2} />
+          <Marker position={position3} />
+        </Map>
       </Wrapper>
     </div>
   );
