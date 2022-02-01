@@ -51,21 +51,17 @@ const MapLayout = (props: any) => {
 
   useEffect(() => {
     if (props.objects !== undefined) {
-      if (props.objects !== undefined) {
-        const latitudes = props.objects.map((element: any) => {
-          return element.location.latitude;
-        });
-        const longitudes = props.objects.map((element: any) => {
-          return element.location.longitude;
-        });
-        setDefaultLat(calcMedian(latitudes));
-        setDefaultLong(calcMedian(longitudes));
-        setDefaultZoom(10);
-      }
+      const latitudes = props.objects.map((element: any) => {
+        return element.location.latitude;
+      });
+      const longitudes = props.objects.map((element: any) => {
+        return element.location.longitude;
+      });
+      setDefaultLat(calcMedian(latitudes));
+      setDefaultLong(calcMedian(longitudes));
+      setDefaultZoom(10);
     }
   }, [props.objects]);
-
-  let center = { lat: defaultLat, lng: defaultLong };
 
   const position1 = {
     lat: 52.1935161702226,
